@@ -4,7 +4,7 @@
             :things="filteredThings"
             @select-item="$emit('delete-thing', $event)"
         />
-        <div v-if="!singleItem">{{ `selected: ${filteredThings.length}/${maxCount}` }}</div>
+        <div :class="$style.counter" v-if="!singleItem">{{ `selected: ${filteredThings.length}/${maxCount}` }}</div>
     </div>
 </template>
 
@@ -47,9 +47,14 @@ export default {
     flex-wrap: wrap;
     align-items: center;
     gap: 16px;
+    max-width: 684px;
     min-height: 140px;
     padding: 16px;
     border: 2px solid #000;
     border-radius: 12px;
+}
+
+.counter {
+    align-self: flex-end;
 }
 </style>

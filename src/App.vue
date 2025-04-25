@@ -2,9 +2,9 @@
     <div id="app" :class="$style.app">
         <div :class="$style.preview">
             <ThingsPreview
-                v-show="selectedUserThings.length"
-                :things="selectedUserThings"
-                :max-count="6"
+                v-show="filteredUserThings.length"
+                :things="filteredUserThings"
+                :max-count="maxCount"
                 @delete-thing="onDeleteSelectedUserThing"
             />
             <ThingsPreview
@@ -47,6 +47,8 @@ export default {
             userThings: userThings || [],
             allSelectedUserThings: [],
             selectedThingOfChoose: [],
+
+            maxCount: 6,
         };
     },
     methods: {
@@ -55,7 +57,9 @@ export default {
          * @param {Object} value - Выбранный элемент.
          */
         onSelectUserThings(value) {
-            this.allSelectedUserThings.push(value);
+            if (this.filteredUserThings.length < this.maxCount) {
+                this.allSelectedUserThings.push(value);
+            }
         },
 
         /**
@@ -71,15 +75,13 @@ export default {
          * @param {number} value - Объект удаляемого элемента.
          */
         onDeleteSelectedUserThing(value) {
-            console.log(value.id);
             this.allSelectedUserThings = this.allSelectedUserThings.filter(thing => thing.id !== value.id);
         },
 
         /**
          * Удаляет элемент из списка выбранных элементов для выбора.
          */
-        onDeleteSelectedThingsOfChoose( ){
-            console.log('adsadsads');
+        onDeleteSelectedThingsOfChoose() {
             this.selectedThingOfChoose = [];
         },
     },
@@ -92,7 +94,14 @@ export default {
             const set = new Set(this.allSelectedUserThings);
             return Array.from(set);
         },
-    }
+        /**
+         * Возвращает отфильтрованные элементы в зависимости от maxCount.
+         * @returns {Array} Отфильтрованные элементы.
+         */
+        filteredUserThings() {
+            return this.selectedUserThings.slice(0, 6);
+        },
+    },
 }
 </script>
 
@@ -120,10 +129,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
 }
 
-.cart{
+.cart {
     gap: 24px;
 }
 
