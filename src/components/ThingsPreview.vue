@@ -54,6 +54,7 @@ export default {
     border-radius: 12px;
 }
 
+
 .counter {
     align-self: flex-end;
 }
