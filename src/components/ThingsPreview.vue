@@ -67,7 +67,8 @@ export default {
     }
 }
 
-.counter{
+
+.counter {
     align-self: flex-end;
 }
 </style>
