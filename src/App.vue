@@ -2,13 +2,11 @@
     <div id="app" :class="$style.app">
         <div :class="$style.preview">
             <ThingsPreview
-                v-show="filteredUserThings.length"
                 :things="filteredUserThings"
                 :max-count="maxCount"
                 @delete-thing="onDeleteSelectedUserThing"
             />
             <ThingsPreview
-                v-show="selectedThingOfChoose.length"
                 :things="selectedThingOfChoose"
                 single-item
                 @delete-thing="onDeleteSelectedThingsOfChoose"

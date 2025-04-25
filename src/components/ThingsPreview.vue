@@ -1,5 +1,5 @@
 <template>
-    <div :class="$style.ThingsPreview">
+    <div :class="[$style.ThingsPreview, classes]">
         <ThingsList
             :things="filteredThings"
             @select-item="$emit('delete-thing', $event)"
@@ -36,6 +36,12 @@ export default {
         filteredThings() {
             return this.things.slice(0, this.maxCount);
         },
+
+        classes() {
+            return {
+                [this.$style._isCounter]: !this.singleItem,
+            }
+        }
     },
 }
 </script>
@@ -46,12 +52,19 @@ export default {
     flex-direction: column;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
     gap: 16px;
-    max-width: 684px;
+    min-width: 156px;
     min-height: 140px;
     padding: 16px;
     border: 2px solid #000;
     border-radius: 12px;
+
+    &._isCounter {
+        align-items: start;
+        justify-content: space-between;
+        min-width: 684px;
+    }
 }
 
 
